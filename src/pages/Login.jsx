@@ -1,14 +1,17 @@
+import { Outlet } from "react-router";
 import Navbar from "./components/Navbar";
 
-const Home = () => {
+const Login = () => {
   return (
     <>
       <header>
         <Navbar />
       </header>
-      Welcome to myhome
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };
 
-export default Home;
+export default Login;
