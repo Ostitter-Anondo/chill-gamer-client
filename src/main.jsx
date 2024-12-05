@@ -10,6 +10,7 @@ import LoginForm from './pages/Login/LoginForm.jsx';
 import { Toaster } from 'react-hot-toast';
 import SignupForm from './pages/Login/SignupForm.jsx';
 import ForgotPass from './pages/Login/ForgotPass.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         element: <ForgotPass />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
