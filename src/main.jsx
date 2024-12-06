@@ -8,9 +8,9 @@ import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import LoginForm from './pages/Login/LoginForm.jsx';
 import { Toaster } from 'react-hot-toast';
-import SignupForm from './pages/Login/SignupForm.jsx';
 import ForgotPass from './pages/Login/ForgotPass.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Signup from './pages/Signup.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,14 +26,14 @@ const router = createBrowserRouter([
         element: <LoginForm />,
       },
       {
-        path: "/login/signup",
-        element: <SignupForm />,
-      },
-      {
         path: "/login/forgotpass",
         element: <ForgotPass />,
       },
     ],
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
     path: "*",

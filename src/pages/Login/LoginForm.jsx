@@ -4,14 +4,25 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiPasswordBold } from "react-icons/pi";
 import { Link, useNavigate } from "react-router";
 import Context from "../../utils/Context";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
-  const { loginMailPass } = useContext(Context);
+  const { loginMailPass, setUserData } = useContext(Context);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const loginBehavior = (e) => {
     e.preventDefault();
-    loginMailPass(e.target.email.value, e.target.password.value);
+    loginMailPass(e.target.email.value, e.target.password.value)
+      .then((result) => {
+        fetch(`http://localhost:5120/users/${result.user.uid}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setUserData(data);
+          });
+      })
+      .then(() => {
+        toast.success(`login successful`);
+      });
   };
 
   return (
@@ -61,7 +72,7 @@ const LoginForm = () => {
         <p className="font-extralight text-sm self-start">
           Don&apos;t have an account?{" "}
           <Link
-            to="/login/signup"
+            to="/signup"
             className="btn btn-link text-accent btn-sm min-h-0 h-fit p-0"
           >
             Sign up

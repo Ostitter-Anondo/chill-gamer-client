@@ -1,31 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Context from "./Context";
 import PropTypes from "prop-types";
-import toast from "react-hot-toast";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { auth } from "./firebase/firebase.init";
 
 const ContextProvider = ({ children }) => {
-
-  const [currentUser, setCurrentUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const loginMailPass = (mail, pass) => {
-    toast.success(`${mail} attempted login using ${pass}`);
-  }
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, mail, pass);
+  };
   const signupMailPass = (mail, pass) => {
-    toast(`${mail} attempted signup using ${pass}`,
-      {
-        icon: '👏',
-        style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
-        },
-      });
+    return createUserWithEmailAndPassword(auth, mail, pass);
+  };
+  const signOutUser = () => {
+    setLoading(true)
+    setUserData(null)
+    return signOut(auth);
   }
 
   const dataValues = {
-    currentUser, setCurrentUser,
-    loginMailPass, signupMailPass,
+    loading,
+    userData,
+    setUserData,
+    loginMailPass,
+    signupMailPass,
+    signOutUser,
   };
+
+  useEffect(() => {
+    const loginCheck = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log("currently logged in");
+        fetch(`http://localhost:5120/users/${currentUser.uid}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setUserData(data);
+          });
+        setLoading(false);
+      } else {
+        setLoading(false);
+        console.log("not logged in");
+      }
+    });
+
+    return () => {
+      loginCheck();
+    };
+  }, []);
+
   return <Context.Provider value={dataValues}>{children}</Context.Provider>;
 };
 

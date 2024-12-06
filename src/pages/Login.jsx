@@ -7,7 +7,7 @@ const Login = () => {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className="my-12">
         <Outlet />
       </main>
     </>
