@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
         <Navbar />
       </header>
       Welcome to myhome
+      <Footer />
     </>
   );
 };

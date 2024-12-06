@@ -5,6 +5,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { RiImageCircleAiLine } from "react-icons/ri";
 import { Link } from "react-router";
 import toast from "react-hot-toast";
+import Footer from "./components/Footer";
 
 const Dashboard = () => {
   const { userData, setUserData } = useContext(Context);
@@ -145,6 +146,7 @@ const Dashboard = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

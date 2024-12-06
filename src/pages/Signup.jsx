@@ -8,6 +8,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { RiImageCircleAiLine } from "react-icons/ri";
 import Context from "../utils/Context";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -122,6 +123,7 @@ const Signup = () => {
               className="grow"
               placeholder="Email"
               name="email"
+              required
             />
           </label>
           <label className="w-full input input-bordered flex items-center gap-2">
@@ -131,6 +133,7 @@ const Signup = () => {
               className="grow"
               placeholder="Photo URL"
               name="photo"
+              required
             />
           </label>
           <label className="w-full input input-bordered flex items-center gap-2">
@@ -169,6 +172,7 @@ const Signup = () => {
           </button>
         </form>
       </main>
+      <Footer />
     </>
   );
 };

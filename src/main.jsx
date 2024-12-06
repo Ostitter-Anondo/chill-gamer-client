@@ -13,6 +13,7 @@ import NotFound from './pages/NotFound.jsx';
 import Signup from './pages/Signup.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import PrivateRoute from './utils/PrivateRoute.jsx';
+import AddReview from './pages/AddReview.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,12 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoute>
       <Dashboard />
+    </PrivateRoute>,
+  },
+  {
+    path: "/addreview",
+    element: <PrivateRoute>
+      <AddReview />
     </PrivateRoute>,
   },
   {
