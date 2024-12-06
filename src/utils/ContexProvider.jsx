@@ -47,6 +47,7 @@ const ContextProvider = ({ children }) => {
         setLoading(false);
       } else {
         setLoading(false);
+        setUserData(null);
         console.log("not logged in");
       }
     });

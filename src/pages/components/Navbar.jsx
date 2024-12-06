@@ -14,6 +14,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
+      {
+        userData? 
+        <>
+          <li><NavLink to="/addreview">Add Review</NavLink></li>
+          <li><NavLink to="/myreviews">My Reviews</NavLink></li>
+          <li><NavLink to="/watchlist">Game Watchlist</NavLink></li>
+        </>
+        :
+        <></>
+      }
       <li>
         <NavLink to="/reviews">All Reviews</NavLink>
       </li>
@@ -47,11 +57,11 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {userData ? (
-          <div className="menu menu-horizontal items-center gap-3 border border-base-100 rounded-xl">
+          <div className="menu menu-horizontal items-center gap-3 border border-base-100 rounded-full">
             <Link
               data-tooltip-id="usr-nm"
               data-tooltip-content={userData.nameVal}
-              data-tooltip-place="bottom-start"
+              data-tooltip-place="left"
               className="btn btn-circle size-12 p-1"
               to="/dashboard"
             >

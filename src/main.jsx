@@ -11,6 +11,8 @@ import { Toaster } from 'react-hot-toast';
 import ForgotPass from './pages/Login/ForgotPass.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Signup from './pages/Signup.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import PrivateRoute from './utils/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,12 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/dashboard",
+    element: <PrivateRoute>
+      <Dashboard />
+    </PrivateRoute>,
   },
   {
     path: "*",
