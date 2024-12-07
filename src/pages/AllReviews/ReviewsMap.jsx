@@ -29,7 +29,7 @@ const ReviewsMap = ({reviewList}) => {
             />
             <div className="card-actions justify-between items-center">
               <Link
-                to={`/reviews/${review._id}`}
+                to={`/review/${review._id}`}
                 className="btn btn-info btn-sm rounded-full"
               >
                 Details...

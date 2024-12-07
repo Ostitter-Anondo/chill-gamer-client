@@ -12,6 +12,7 @@ import { auth } from "./firebase/firebase.init";
 const ContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [lightTheme, setLightTheme] = useState(true);
 
   const loginMailPass = (mail, pass) => {
     setLoading(true);
@@ -21,10 +22,10 @@ const ContextProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, mail, pass);
   };
   const signOutUser = () => {
-    setLoading(true)
-    setUserData(null)
+    setLoading(true);
+    setUserData(null);
     return signOut(auth);
-  }
+  };
 
   const dataValues = {
     loading,
@@ -33,6 +34,8 @@ const ContextProvider = ({ children }) => {
     loginMailPass,
     signupMailPass,
     signOutUser,
+    lightTheme,
+    setLightTheme,
   };
 
   useEffect(() => {
