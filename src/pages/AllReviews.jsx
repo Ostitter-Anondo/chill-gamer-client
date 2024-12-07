@@ -12,7 +12,7 @@ const AllReviews = () => {
     e.preventDefault();
     const genre = e.target.genreSelector.value;
     const sort = e.target.sortVal.value;
-    fetch(`http://localhost:5120/reviews/${sort}/${genre}`)
+    fetch(`${import.meta.env.VITE_expressApiUrl}/reviews/${sort}/${genre}`)
       .then(res => res.json())
       .then(data => setReviewList(data))
       .catch(err => console.log(err))

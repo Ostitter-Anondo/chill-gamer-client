@@ -57,7 +57,7 @@ const Signup = () => {
         console.log(result.user);
         const uid = result.user.uid;
         const newUser = {uid, nameVal, emailVal, photoVal};
-        fetch('http://localhost:5120/users', {
+        fetch(`${import.meta.env.VITE_expressApiUrl}/users`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json',

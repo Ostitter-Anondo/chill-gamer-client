@@ -42,7 +42,7 @@ const ContextProvider = ({ children }) => {
     const loginCheck = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         console.log("currently logged in");
-        fetch(`http://localhost:5120/users/${currentUser.uid}`)
+        fetch(`${import.meta.env.VITE_expressApiUrl}/users/${currentUser.uid}`)
           .then((res) => res.json())
           .then((data) => {
             setUserData(data);

@@ -14,7 +14,7 @@ const LoginForm = () => {
     e.preventDefault();
     loginMailPass(e.target.email.value, e.target.password.value)
       .then((result) => {
-        fetch(`http://localhost:5120/users/${result.user.uid}`)
+        fetch(`${import.meta.env.VITE_expressApiUrl}/users/${result.user.uid}`)
           .then((res) => res.json())
           .then((data) => {
             setUserData(data);

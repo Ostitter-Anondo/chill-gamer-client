@@ -1,16 +1,23 @@
-import PropTypes from 'prop-types';
-import { useContext } from 'react';
-import Context from './Context';
-import Navbar from '../pages/components/Navbar';
-import Footer from '../pages/components/Footer';
-import { Link, useLoaderData } from 'react-router';
+import PropTypes from "prop-types";
+import { useContext, useEffect, useState } from "react";
+import Context from "./Context";
+import Navbar from "../pages/components/Navbar";
+import Footer from "../pages/components/Footer";
+import { Link, useParams } from "react-router";
 
-import intruder from '../assets/intruder.png'
+import intruder from "../assets/intruder.png";
 
-const SuperPrivateRoute = ({children}) => {
+const SuperPrivateRoute = ({ children }) => {
   const { userData } = useContext(Context);
-  const article = useLoaderData();
-  
+  const [article, setArticle] = useState({});
+  const articleId = useParams().id;
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_expressApiUrl}/review/${articleId}`)
+      .then((res) => res.json())
+      .then((data) => setArticle(data))
+      .catch((err) => console.log(err));
+  }, [articleId]);
+
   if (article.email === userData.emailVal) {
     return children;
   }
@@ -21,14 +28,18 @@ const SuperPrivateRoute = ({children}) => {
         <Navbar />
       </header>
       <main>
-      <div className="w-full flex flex-col items-center gap-12 my-12">
-      <img src={intruder} alt="404" className="size-48" />
-      <div className="w-8/12 flex flex-col gap-6 text-center">
-        <h1 className="text-7xl font-black text-warning">oops...</h1>
-        <h2 className="text-4xl font-semibold text-info">looks like you are not supposed to be here... wanna head back?</h2>
-        <Link to={-1} className="btn btn-link btn-lg">Return to previous page</Link>
-      </div>
-    </div>
+        <div className="w-full flex flex-col items-center gap-12 my-12">
+          <img src={intruder} alt="404" className="size-48" />
+          <div className="w-8/12 flex flex-col gap-6 text-center">
+            <h1 className="text-7xl font-black text-warning">oops...</h1>
+            <h2 className="text-4xl font-semibold text-info">
+              looks like you are not supposed to be here... wanna head back?
+            </h2>
+            <Link to={-1} className="btn btn-link btn-lg">
+              Return to previous page
+            </Link>
+          </div>
+        </div>
       </main>
       <Footer />
     </>
@@ -36,7 +47,7 @@ const SuperPrivateRoute = ({children}) => {
 };
 
 SuperPrivateRoute.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default SuperPrivateRoute;

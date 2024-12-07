@@ -13,7 +13,7 @@ const Dashboard = () => {
   const updateName = (e) => {
     e.preventDefault();
     const user = {name: e.target.name.value, photo: userData.photoVal}
-    fetch(`http://localhost:5120/users/${userData.uid}`,{
+    fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`,{
       method: "PUT",
       headers: {
         'content-type': 'application/json',
@@ -23,7 +23,7 @@ const Dashboard = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        fetch(`http://localhost:5120/users/${userData.uid}`)
+        fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`)
           .then((res) => res.json())
           .then((data) => {
             setUserData(data);
@@ -45,7 +45,7 @@ const Dashboard = () => {
   const updatePhoto = (e) => {
     e.preventDefault();
     const user = {name: userData.nameVal, photo: e.target.photo.value}
-    fetch(`http://localhost:5120/users/${userData.uid}`,{
+    fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`,{
       method: "PUT",
       headers: {
         'content-type': 'application/json',
@@ -55,7 +55,7 @@ const Dashboard = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        fetch(`http://localhost:5120/users/${userData.uid}`)
+        fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`)
           .then((res) => res.json())
           .then((data) => {
             setUserData(data);

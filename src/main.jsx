@@ -17,6 +17,8 @@ import AddReview from "./pages/AddReview.jsx";
 import AllReviews from "./pages/AllReviews.jsx";
 import MyReviews from "./pages/MyReviews.jsx";
 import ReviewDeets from "./pages/ReviewDeets.jsx";
+import EditReview from "./pages/EditReview.jsx";
+import SuperPrivateRoute from "./utils/SuperPrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
   {
     path: "/reviews",
     element: <AllReviews />,
-    loader: () => fetch("http://localhost:5120/reviews"),
+    loader: () => fetch(`${import.meta.env.VITE_expressApiUrl}/reviews`),
   },
   {
     path: "/review/:id",
@@ -71,6 +73,16 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <MyReviews />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/edit/:id",
+    element: (
+      <PrivateRoute>
+        <SuperPrivateRoute>
+          <EditReview />
+        </SuperPrivateRoute>
       </PrivateRoute>
     ),
   },

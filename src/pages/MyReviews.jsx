@@ -13,7 +13,7 @@ const MyReviews = () => {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5120/myreviews/${userData.emailVal}`)
+    fetch(`${import.meta.env.VITE_expressApiUrl}/myreviews/${userData.emailVal}`)
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((err) => console.log(err));
@@ -29,7 +29,7 @@ const MyReviews = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5120/review/${id}`, {
+        fetch(`${import.meta.env.VITE_expressApiUrl}/review/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -41,7 +41,7 @@ const MyReviews = () => {
                 text: "Your file has been deleted.",
                 icon: "success",
               });
-              fetch(`http://localhost:5120/myreviews/${userData.emailVal}`)
+              fetch(`${import.meta.env.VITE_expressApiUrl}/myreviews/${userData.emailVal}`)
                 .then((res) => res.json())
                 .then((data) => setArticles(data))
                 .catch((err) => console.log(err));
@@ -98,7 +98,7 @@ const MyReviews = () => {
                   </td>
                   <th>
                     <div className="flex gap-6 justify-center">
-                      <Link className="btn btn-info btn-xs">
+                      <Link to={`/edit/${article._id}`} className="btn btn-info btn-xs">
                         <FaEdit /> Edit
                       </Link>
                       <button
