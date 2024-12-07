@@ -7,7 +7,7 @@ import Context from "../../utils/Context";
 import toast from "react-hot-toast";
 
 const LoginForm = () => {
-  const { loginMailPass, setUserData } = useContext(Context);
+  const { loginMailPass, setUserData, signInGoogle } = useContext(Context);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const loginBehavior = (e) => {
@@ -22,7 +22,47 @@ const LoginForm = () => {
       })
       .then(() => {
         toast.success(`login successful`);
-      });
+      })
+      .catch((err) => toast.error(`${err.message}`));
+  };
+  const googleLogin = (e) => {
+    e.preventDefault();
+    signInGoogle()
+      .then((result) => {
+        console.log(result);
+        fetch(
+          `${import.meta.env.VITE_expressApiUrl}/users/google/${
+            result.user.uid
+          }`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              uid: result.user.uid,
+              name: result.user.displayName,
+              email: result.user.email,
+              photo: result.user.photoURL,
+            }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            fetch(
+              `${import.meta.env.VITE_expressApiUrl}/users/${result.user.uid}`
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                setUserData(data);
+              });
+          });
+      })
+      .then(() => {
+        toast.success(`login successful`);
+      })
+      .catch((err) => toast.error(`${err.message}`));
   };
 
   return (
@@ -91,7 +131,10 @@ const LoginForm = () => {
         <hr className="flex-grow border-gray-500" />
       </div>
       <div className="mx-auto w-fit">
-        <button className="btn btn-lg btn-outline btn-primary">
+        <button
+          onClick={googleLogin}
+          className="btn btn-lg btn-outline btn-primary"
+        >
           <FaGoogle /> Log in with Google
         </button>
       </div>

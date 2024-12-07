@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Context from "../utils/Context";
 import { BiUserCircle } from "react-icons/bi";
@@ -9,6 +9,13 @@ import Footer from "./components/Footer";
 
 const Dashboard = () => {
   const { userData, setUserData } = useContext(Context);
+  const [reviewList, setReviewList] = useState([])
+  useEffect(()=>{
+    fetch(`${import.meta.env.VITE_expressApiUrl}/userreviews/${userData.emailVal}`)
+      .then(res => res.json())
+      .then(data => setReviewList(data))
+      .catch(err => console.log(err))
+  },[setReviewList, userData.emailVal])
 
   const updateName = (e) => {
     e.preventDefault();
@@ -98,12 +105,12 @@ const Dashboard = () => {
                 </tr>
                 <tr>
                   <th>Articles Written</th>
-                  <td>N/A</td>
+                  <td>{reviewList.length}</td>
                 </tr>
               </tbody>
             </table>
             <div>
-              <ul className="menu menu-horizontal w-full justify-between border border-base-300 rounded-lg">
+              <ul className="menu menu-horizontal w-full justify-between border border-base-300 rounded-full">
                 <li>
                   <Link className="btn btn-outline btn-sm rounded-r-none" to='/addreview'>Add a New Review</Link>
                 </li>

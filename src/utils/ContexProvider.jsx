@@ -3,8 +3,10 @@ import Context from "./Context";
 import PropTypes from "prop-types";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import { auth } from "./firebase/firebase.init";
@@ -14,9 +16,15 @@ const ContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [lightTheme, setLightTheme] = useState(true);
 
+  const googleProvider = new GoogleAuthProvider();
+
   const loginMailPass = (mail, pass) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, mail, pass);
+  };
+  const signInGoogle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
   };
   const signupMailPass = (mail, pass) => {
     return createUserWithEmailAndPassword(auth, mail, pass);
@@ -32,6 +40,7 @@ const ContextProvider = ({ children }) => {
     userData,
     setUserData,
     loginMailPass,
+    signInGoogle,
     signupMailPass,
     signOutUser,
     lightTheme,
