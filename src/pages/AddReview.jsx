@@ -68,6 +68,7 @@ const AddReview = () => {
               className="grow"
               placeholder="Cover Image (URL)"
               name="coverIMG"
+              required
             />
           </label>
           <label className="w-full input input-bordered flex items-center gap-2 col-span-2">
@@ -77,6 +78,7 @@ const AddReview = () => {
               className="grow"
               placeholder="Title"
               name="title"
+              required
             />
           </label>
           <select className="select select-warning w-full grow" name="rating">
@@ -138,6 +140,7 @@ const AddReview = () => {
               className="textarea textarea-lg min-h-48 textarea-bordered h-24"
               placeholder="Review Text"
               name="reviewTXT"
+              required
             ></textarea>
           </label>
           <label className="w-full input input-bordered flex items-center gap-2">
@@ -147,6 +150,7 @@ const AddReview = () => {
               className="grow"
               placeholder="Year Published"
               name="year"
+              required
             />
           </label>
           <button className="btn btn-success" type="submit">

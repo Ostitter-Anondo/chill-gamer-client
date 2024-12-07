@@ -114,6 +114,7 @@ const Signup = () => {
               className="grow"
               placeholder="Name"
               name="name"
+              required
             />
           </label>
           <label className="w-full input input-bordered flex items-center gap-2">

@@ -1,19 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
 
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import ContextProvider from './utils/ContexProvider.jsx';
-import Home from './pages/Home.jsx';
-import Login from './pages/Login.jsx';
-import LoginForm from './pages/Login/LoginForm.jsx';
-import { Toaster } from 'react-hot-toast';
-import ForgotPass from './pages/Login/ForgotPass.jsx';
-import NotFound from './pages/NotFound.jsx';
-import Signup from './pages/Signup.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import PrivateRoute from './utils/PrivateRoute.jsx';
-import AddReview from './pages/AddReview.jsx';
+import { createBrowserRouter, RouterProvider } from "react-router";
+import ContextProvider from "./utils/ContexProvider.jsx";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import LoginForm from "./pages/Login/LoginForm.jsx";
+import { Toaster } from "react-hot-toast";
+import ForgotPass from "./pages/Login/ForgotPass.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import Signup from "./pages/Signup.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import PrivateRoute from "./utils/PrivateRoute.jsx";
+import AddReview from "./pages/AddReview.jsx";
+import AllReviews from "./pages/AllReviews.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,16 +40,25 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
+    path: "/reviews",
+    element: <AllReviews />,
+    loader: () => fetch('http://localhost:5120/reviews'),
+  },
+  {
     path: "/dashboard",
-    element: <PrivateRoute>
-      <Dashboard />
-    </PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/addreview",
-    element: <PrivateRoute>
-      <AddReview />
-    </PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <AddReview />
+      </PrivateRoute>
+    ),
   },
   {
     path: "*",
@@ -56,11 +66,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ContextProvider>
       <Toaster />
       <RouterProvider router={router} />
     </ContextProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
