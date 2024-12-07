@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import PrivateRoute from "./utils/PrivateRoute.jsx";
 import AddReview from "./pages/AddReview.jsx";
 import AllReviews from "./pages/AllReviews.jsx";
+import MyReviews from "./pages/MyReviews.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
   {
     path: "/reviews",
     element: <AllReviews />,
-    loader: () => fetch('http://localhost:5120/reviews'),
+    loader: () => fetch("http://localhost:5120/reviews"),
   },
   {
     path: "/dashboard",
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <AddReview />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/myreviews",
+    element: (
+      <PrivateRoute>
+        <MyReviews />
       </PrivateRoute>
     ),
   },

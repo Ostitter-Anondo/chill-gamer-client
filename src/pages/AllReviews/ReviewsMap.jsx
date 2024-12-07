@@ -19,6 +19,7 @@ const ReviewsMap = ({reviewList}) => {
               {review.title}
               <div className="badge badge-secondary">{review.year}</div>
             </h2>
+            <p className='font-light'>by <span className="text-primary">{review.name}</span></p>
             <ReactStars
               count={5}
               value={review.rating}
