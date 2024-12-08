@@ -1,20 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Markdown from "react-markdown";
 import { FaArrowLeft } from "react-icons/fa";
 import ReactStars from "react-rating-stars-component";
+import Context from "../utils/Context";
+import toast from "react-hot-toast";
 
 const ReviewDeets = () => {
+  const { userData } = useContext(Context);
+
   const location = useParams().id;
   const [review, setReview] = useState(null);
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_expressApiUrl}/review/${location}`)
       .then((res) => res.json())
       .then((data) => setReview(data))
       .catch((err) => console.log(err));
   }, [location]);
+
   if (!review) {
     return (
       <>
@@ -41,6 +47,62 @@ const ReviewDeets = () => {
       </>
     );
   }
+
+  const handleAddWatchlist = () => {
+    fetch(`${import.meta.env.VITE_expressApiUrl}/watchlist/${userData.uid}`)
+      .then((res) => res.json())
+      .then((watchlistData) => {
+        const watchlistVal = watchlistData.watchlist;
+        if (watchlistVal) {
+          if (watchlistVal.includes(review._id)) {
+            toast.error(`article already in watchlist`);
+          } else {
+            fetch(
+              `${import.meta.env.VITE_expressApiUrl}/watchlist/${
+                watchlistData.uid
+              }`,
+              {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  watchlist: [...watchlistVal, review._id],
+                }),
+              }
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+              });
+          }
+        } else {
+          fetch(
+            `${import.meta.env.VITE_expressApiUrl}/watchlist/${
+              watchlistData.uid
+            }`,
+            {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({ watchlist: [review._id] }),
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+            });
+        }
+      })
+      .then(() => {
+        toast.success(`watchlist updated`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <header>
@@ -53,13 +115,9 @@ const ReviewDeets = () => {
           </Link>
         </div>
         <div className="flex flex-col items-center justify-center gap-8 w-11/12 mx-auto">
-          <h1 className="font-extrabold text-5xl">{review.title}</h1>
-          <div className="flex items-center justify-between w-full">
-            <div className="flex-col justify-center items-start bg-base-200 border-base-300 h-fit p-3 rounded-lg">
-              <h4 className="font-bold text-primary">{review.name}</h4>
-              <h5 className="font-light text-sm">{review.email}</h5>
-            </div>
-            <div className="flex gap-3">
+          <div className="flex gap-3">
+            <h1 className="font-extrabold text-5xl">{review.title}</h1>
+            <div className="flex flex-col gap-3">
               <span className="badge badge-secondary font-semibold">
                 {review.genre}
               </span>
@@ -67,21 +125,30 @@ const ReviewDeets = () => {
                 {review.year}
               </span>
             </div>
-            <h3 className="font-bold text-2xl">
-              <div className="flex place-self-center">
-                {review ? (
-                  <ReactStars
-                    count={5}
-                    value={review.rating}
-                    edit={false}
-                    size={24}
-                    activeColor="#ffd700"
-                  />
-                ) : (
-                  <></>
-                )}
+          </div>
+          <div className="flex items-center justify-between w-full">
+            <div className="flex-col justify-center items-start bg-base-200 border-base-300 h-fit p-3 rounded-lg">
+              <h4 className="font-bold text-primary">{review.name}</h4>
+              <h5 className="font-light text-sm">{review.email}</h5>
+            </div>
+
+            <div className="flex flex-col gap-3 items-center justify-center">
+              <div className="font-bold text-2xl flex place-self-center">
+                <ReactStars
+                  count={5}
+                  value={review.rating}
+                  edit={false}
+                  size={24}
+                  activeColor="#ffd700"
+                />
               </div>
-            </h3>
+              <button
+                className="btn btn-info btn-outline btn-xs"
+                onClick={handleAddWatchlist}
+              >
+                Add to watchlist
+              </button>
+            </div>
           </div>
           <img src={review.cover} className="h-72 rounded-sm" alt="" />
           <div className="text-justify font-light">

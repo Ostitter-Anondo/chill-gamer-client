@@ -25,75 +25,90 @@ const Signup = () => {
     if (!mailRegex.test(emailVal)) {
       toast.error(`invalid email`, {
         style: {
-          padding: '16px',
-          background: '#ff4d52',
-          color: '#fff',
+          padding: "16px",
+          background: "#ff4d52",
+          color: "#fff",
         },
         iconTheme: {
-          primary: '#fff',
-          secondary: '#ff4d52',
+          primary: "#fff",
+          secondary: "#ff4d52",
         },
       });
       return;
     }
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(passwordVal)) {
-      toast.error(`password must be at least 6 characters long\npassword must have at least one uppercase and one lowercase letter`, {
-        style: {
-          padding: '16px',
-          background: '#ff4d52',
-          color: '#fff',
-        },
-        iconTheme: {
-          primary: '#fff',
-          secondary: '#ff4d52',
-        },
-      });
+      toast.error(
+        `password must be at least 6 characters long\npassword must have at least one uppercase and one lowercase letter`,
+        {
+          style: {
+            padding: "16px",
+            background: "#ff4d52",
+            color: "#fff",
+          },
+          iconTheme: {
+            primary: "#fff",
+            secondary: "#ff4d52",
+          },
+        }
+      );
       return;
     }
 
     signupMailPass(emailVal, passwordVal)
-      .then(result=>{
+      .then((result) => {
         console.log(result.user);
         const uid = result.user.uid;
-        const newUser = {uid, nameVal, emailVal, photoVal};
+        const newUser = { uid, nameVal, emailVal, photoVal };
         fetch(`${import.meta.env.VITE_expressApiUrl}/users`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'content-type': 'application/json',
+            "content-type": "application/json",
           },
           body: JSON.stringify(newUser),
         })
-          .then(res => res.json())
-          .then(data => console.log(data))
-          .catch(err => console.log(err));
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+
+        const newWatchlist = { uid, name: nameVal, emailVal: emailVal };
+        fetch(`${import.meta.env.VITE_expressApiUrl}/watchlist`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newWatchlist),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
       })
-      .then(()=>{
+      .then(() => {
         toast.success(`signup successful`, {
           style: {
-            padding: '16px',
-            background: '#4de62e',
-            color: '#fff',
+            padding: "16px",
+            background: "#4de62e",
+            color: "#fff",
           },
           iconTheme: {
-            primary: '#fff',
-            secondary: '#4de62e',
+            primary: "#fff",
+            secondary: "#4de62e",
           },
         });
       })
-      .catch((err)=>{
+      .catch((err) => {
         toast.error(`signup failed: ${err.message}`, {
           style: {
-            padding: '16px',
-            background: '#ff4d52',
-            color: '#fff',
+            padding: "16px",
+            background: "#ff4d52",
+            color: "#fff",
           },
           iconTheme: {
-            primary: '#fff',
-            secondary: '#ff4d52',
+            primary: "#fff",
+            secondary: "#ff4d52",
           },
         });
-        console.log(err)
+        console.log(err);
       });
   };
 

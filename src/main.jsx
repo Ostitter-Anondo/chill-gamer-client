@@ -19,6 +19,7 @@ import MyReviews from "./pages/MyReviews.jsx";
 import ReviewDeets from "./pages/ReviewDeets.jsx";
 import EditReview from "./pages/EditReview.jsx";
 import SuperPrivateRoute from "./utils/SuperPrivateRoute.jsx";
+import Watchlist from "./pages/Watchlist.jsx";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <MyReviews />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/watchlist",
+    element: (
+      <PrivateRoute>
+        <Watchlist />
       </PrivateRoute>
     ),
   },

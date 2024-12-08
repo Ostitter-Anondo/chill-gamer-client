@@ -18,9 +18,30 @@ const LoginForm = () => {
           .then((res) => res.json())
           .then((data) => {
             setUserData(data);
+            fetch(
+              `${import.meta.env.VITE_expressApiUrl}/newWatchlist/${
+                data.uid
+              }`,
+              {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  uid: data.uid,
+                  name: data.nameVal,
+                  email: data.emailVal,
+                }),
+              }
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+              });
           });
       })
       .then(() => {
+        
         toast.success(`login successful`);
       })
       .catch((err) => toast.error(`${err.message}`));
@@ -31,7 +52,7 @@ const LoginForm = () => {
       .then((result) => {
         console.log(result);
         fetch(
-          `${import.meta.env.VITE_expressApiUrl}/users/google/${
+          `${import.meta.env.VITE_expressApiUrl}/googleusers/${
             result.user.uid
           }`,
           {
@@ -57,6 +78,26 @@ const LoginForm = () => {
               .then((data) => {
                 setUserData(data);
               });
+          });
+        fetch(
+          `${import.meta.env.VITE_expressApiUrl}/newWatchlist/${
+            result.user.uid
+          }`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              uid: result.user.uid,
+              name: result.user.displayName,
+              email: result.user.email,
+            }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
           });
       })
       .then(() => {
