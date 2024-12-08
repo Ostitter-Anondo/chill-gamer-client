@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { PiPasswordBold } from "react-icons/pi";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { BiUserCircle } from "react-icons/bi";
 import { RiImageCircleAiLine } from "react-icons/ri";
@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { signupMailPass } = useContext(Context);
+  const navigate = useNavigate();
 
   const signupBehavior = (e) => {
     e.preventDefault();
@@ -95,6 +96,8 @@ const Signup = () => {
             secondary: "#4de62e",
           },
         });
+
+        navigate('/');
       })
       .catch((err) => {
         toast.error(`signup failed: ${err.message}`, {
@@ -114,7 +117,7 @@ const Signup = () => {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">

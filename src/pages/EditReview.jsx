@@ -34,7 +34,7 @@ const EditReview = () => {
   if (!article) {
     return (
       <>
-        <header>
+        <header className="sticky top-0 z-50">
           <Navbar />
         </header>
         <main>
@@ -97,7 +97,7 @@ const EditReview = () => {
   };
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">
@@ -152,7 +152,7 @@ const EditReview = () => {
             <option value="Storytime">Storytime</option>
             <option value="Arcade">Arcade</option>
           </select>
-          <label className="w-full input input-bordered flex items-center gap-2">
+          <label className="w-full col-span-2 md:col-span-1 input input-bordered flex items-center gap-2">
             <HiOutlineMail />
             <input
               type="text"
@@ -163,7 +163,7 @@ const EditReview = () => {
               disabled
             />
           </label>
-          <label className="w-full input input-bordered flex items-center gap-2">
+          <label className="w-full col-span-2 md:col-span-1 input input-bordered flex items-center gap-2">
             <BiUserCircle />
             <input
               type="text"
@@ -188,7 +188,7 @@ const EditReview = () => {
               </span>
             </div>
             <textarea
-              className="textarea textarea-lg min-h-48 textarea-bordered h-24"
+              className="textarea textarea-lg min-h-screen textarea-bordered h-24"
               placeholder="Review Text"
               name="reviewTXT"
               defaultValue={article.review}

@@ -9,10 +9,13 @@ import { MdOutlineTitle } from "react-icons/md";
 import { IoCalendar } from "react-icons/io5";
 import toast from "react-hot-toast";
 import ReactStars from "react-rating-stars-component";
+import { useNavigate } from "react-router";
 
 const AddReview = () => {
   const { userData } = useContext(Context);
   const [ratingVal, setRatingVal] = useState(null);
+
+  const navigate = useNavigate();
 
   const ratingChanged = (newRating) => {
     setRatingVal(newRating);
@@ -42,6 +45,7 @@ const AddReview = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        navigate("/reviews")
         toast.success(`review submitted`, {
           style: {
             padding: "16px",
@@ -105,7 +109,7 @@ const AddReview = () => {
             <option value="Storytime">Storytime</option>
             <option value="Arcade">Arcade</option>
           </select>
-          <label className="w-full input input-bordered flex items-center gap-2">
+          <label className="w-full col-span-2 md:col-span-1 input input-bordered flex items-center gap-2">
             <HiOutlineMail />
             <input
               type="text"
@@ -116,7 +120,7 @@ const AddReview = () => {
               disabled
             />
           </label>
-          <label className="w-full input input-bordered flex items-center gap-2">
+          <label className="w-full col-span-2 md:col-span-1 input input-bordered flex items-center gap-2">
             <BiUserCircle />
             <input
               type="text"
@@ -141,7 +145,7 @@ const AddReview = () => {
               </span>
             </div>
             <textarea
-              className="textarea textarea-lg min-h-48 textarea-bordered h-24"
+              className="textarea textarea-lg min-h-screen textarea-bordered h-24"
               placeholder="Review Text"
               name="reviewTXT"
               required

@@ -33,6 +33,7 @@ Technologies used in the project:
 *   React Rating Stars
 *   React Tooltip
 *   React Simple Typewriter
+*   egjs-flicking
 *   Sweet Alert 2
 *   Firebase Authentication
 *   MongoDB Atlas

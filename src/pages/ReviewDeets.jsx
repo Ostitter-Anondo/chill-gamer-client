@@ -24,7 +24,7 @@ const ReviewDeets = () => {
   if (!review) {
     return (
       <>
-        <header>
+        <header className="sticky top-0 z-50">
           <Navbar />
         </header>
         <main>
@@ -107,7 +107,7 @@ const ReviewDeets = () => {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">

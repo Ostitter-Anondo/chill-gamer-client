@@ -7,24 +7,27 @@ import { FaFilter, FaLayerGroup, FaSortAmountDown } from "react-icons/fa";
 
 const AllReviews = () => {
   const [reviewList, setReviewList] = useState(useLoaderData());
-  
+
   const handleFilter = (e) => {
     e.preventDefault();
     const genre = e.target.genreSelector.value;
     const sort = e.target.sortVal.value;
     fetch(`${import.meta.env.VITE_expressApiUrl}/reviews/${sort}/${genre}`)
-      .then(res => res.json())
-      .then(data => setReviewList(data))
-      .catch(err => console.log(err))
-  }
+      .then((res) => res.json())
+      .then((data) => setReviewList(data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">
-        <form onSubmit={handleFilter} className="flex justify-end gap-6 items-end my-6 w-11/12 mx-auto">
+        <form
+          onSubmit={handleFilter}
+          className="flex flex-col md:flex-row md:justify-end gap-6 items-center md:items-end my-6 w-11/12 mx-auto"
+        >
           <label className="form-control w-full max-w-xs">
             <div className="label">
               <span className="label-text flex items-center gap-1">
@@ -56,9 +59,11 @@ const AllReviews = () => {
               <option value="Arcade">Arcade</option>
             </select>
           </label>
-          <button className="btn btn-neutral" type="submit"><FaFilter /> Filter</button>
+          <button className="btn btn-neutral" type="submit">
+            <FaFilter /> Filter
+          </button>
         </form>
-        <div className="grid grid-cols-3 w-11/12 mx-auto gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 w-11/12 mx-auto gap-6">
           <ReviewsMap reviewList={reviewList} />
         </div>
       </main>

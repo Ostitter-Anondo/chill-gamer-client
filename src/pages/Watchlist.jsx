@@ -37,7 +37,7 @@ const Watchlist = () => {
   if (!watchlist || watchlist.length === 0) {
     return (
       <>
-        <header>
+        <header className="sticky top-0 z-50">
           <Navbar />
         </header>
         <main>
@@ -114,7 +114,7 @@ const Watchlist = () => {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">

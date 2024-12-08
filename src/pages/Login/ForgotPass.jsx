@@ -7,7 +7,7 @@ const ForgotPass = () => {
   }
   return (
     <div className="w-full">
-      <form onSubmit={resetBehavior} className="flex flex-col w-7/12 items-center mx-auto gap-6">
+      <form onSubmit={resetBehavior} className="flex flex-col w-11/12 md:w-9/12 lg:w-7/12 items-center mx-auto gap-6">
         <label className="w-full input input-bordered flex items-center gap-2">
           <HiOutlineMail />
           <input

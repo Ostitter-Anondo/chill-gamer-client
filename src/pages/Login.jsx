@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 const Login = () => {
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">

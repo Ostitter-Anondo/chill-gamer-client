@@ -41,8 +41,8 @@ const LoginForm = () => {
           });
       })
       .then(() => {
-        
         toast.success(`login successful`);
+        navigate('/');
       })
       .catch((err) => toast.error(`${err.message}`));
   };
@@ -102,6 +102,7 @@ const LoginForm = () => {
       })
       .then(() => {
         toast.success(`login successful`);
+        navigate('/');
       })
       .catch((err) => toast.error(`${err.message}`));
   };
@@ -110,7 +111,7 @@ const LoginForm = () => {
     <div>
       <form
         onSubmit={loginBehavior}
-        className="flex flex-col w-7/12 items-center mx-auto gap-6"
+        className="flex flex-col w-11/12 md:9/12 lg:w-7/12 items-center mx-auto gap-6"
       >
         <label className="w-full input input-bordered flex items-center gap-2">
           <HiOutlineMail />

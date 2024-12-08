@@ -53,18 +53,17 @@ const MyReviews = () => {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12">
-        <div className="w-11/12 mx-auto">
+        <div className="md:w-11/12 mx-auto">
           <table className="table">
             {/* head */}
             <thead>
               <tr>
                 <th>Game</th>
-                <th>Rating</th>
-                <th>Genre</th>
+                <th>Rating/Genre</th>
                 <th></th>
               </tr>
             </thead>
@@ -84,7 +83,7 @@ const MyReviews = () => {
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <td className="flex flex-col items-center sm:items-start text-center gap-3">
                     <ReactStars
                       count={5}
                       value={article.rating}
@@ -92,20 +91,18 @@ const MyReviews = () => {
                       size={24}
                       activeColor="#ffd700"
                     />
-                  </td>
-                  <td>
-                    <span className="badge badge-sm">{article.genre}</span>
+                    <span className="badge badge-sm badge-accent">{article.genre}</span>
                   </td>
                   <th>
-                    <div className="flex gap-6 justify-center">
-                      <Link to={`/edit/${article._id}`} className="btn btn-info btn-xs">
+                    <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+                      <Link to={`/edit/${article._id}`} className="btn btn-info btn-xs h-fit py-2">
                         <FaEdit /> Edit
                       </Link>
                       <button
                         onClick={() => {
                           handleDelete(article._id, article.title);
                         }}
-                        className="btn btn-error btn-xs"
+                        className="btn btn-error btn-xs h-fit py-2"
                       >
                         <FaRegTrashCan />
                         Delete
@@ -119,8 +116,7 @@ const MyReviews = () => {
             <tfoot>
               <tr>
                 <th>Game</th>
-                <th>Rating</th>
-                <th>Genre</th>
+                <th>Rating/Genre</th>
                 <th></th>
               </tr>
             </tfoot>

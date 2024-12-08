@@ -25,6 +25,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    loader: () => fetch(`${import.meta.env.VITE_expressApiUrl}/topreviews/6`),
   },
   {
     path: "/login",

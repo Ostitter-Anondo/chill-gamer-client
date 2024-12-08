@@ -9,26 +9,28 @@ import Footer from "./components/Footer";
 
 const Dashboard = () => {
   const { userData, setUserData } = useContext(Context);
-  const [reviewList, setReviewList] = useState([])
-  useEffect(()=>{
-    fetch(`${import.meta.env.VITE_expressApiUrl}/userreviews/${userData.emailVal}`)
-      .then(res => res.json())
-      .then(data => setReviewList(data))
-      .catch(err => console.log(err))
-  },[setReviewList, userData.emailVal])
+  const [reviewList, setReviewList] = useState([]);
+  useEffect(() => {
+    fetch(
+      `${import.meta.env.VITE_expressApiUrl}/userreviews/${userData.emailVal}`
+    )
+      .then((res) => res.json())
+      .then((data) => setReviewList(data))
+      .catch((err) => console.log(err));
+  }, [setReviewList, userData.emailVal]);
 
   const updateName = (e) => {
     e.preventDefault();
-    const user = {name: e.target.name.value, photo: userData.photoVal}
-    fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`,{
+    const user = { name: e.target.name.value, photo: userData.photoVal };
+    fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`, {
       method: "PUT",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       },
       body: JSON.stringify(user),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
         fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`)
           .then((res) => res.json())
@@ -37,30 +39,30 @@ const Dashboard = () => {
           });
         toast.success(`name change successful`, {
           style: {
-            padding: '16px',
-            background: '#4de62e',
-            color: '#fff',
+            padding: "16px",
+            background: "#4de62e",
+            color: "#fff",
           },
           iconTheme: {
-            primary: '#fff',
-            secondary: '#4de62e',
+            primary: "#fff",
+            secondary: "#4de62e",
           },
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   const updatePhoto = (e) => {
     e.preventDefault();
-    const user = {name: userData.nameVal, photo: e.target.photo.value}
-    fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`,{
+    const user = { name: userData.nameVal, photo: e.target.photo.value };
+    fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`, {
       method: "PUT",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       },
       body: JSON.stringify(user),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data);
         fetch(`${import.meta.env.VITE_expressApiUrl}/users/${userData.uid}`)
           .then((res) => res.json())
@@ -69,30 +71,30 @@ const Dashboard = () => {
           });
         toast.success(`photo change successful`, {
           style: {
-            padding: '16px',
-            background: '#4de62e',
-            color: '#fff',
+            padding: "16px",
+            background: "#4de62e",
+            color: "#fff",
           },
           iconTheme: {
-            primary: '#fff',
-            secondary: '#4de62e',
+            primary: "#fff",
+            secondary: "#4de62e",
           },
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
       <main className="my-12 w-full">
-        <div className="w-10/12 border border-base-300 mx-auto min-h-96 rounded-xl bg-base-200 grid grid-cols-3 p-12 gap-6">
-          <div className="col-span-1">
+        <div className="md:w-10/12 border border-base-300 mx-3 md:mx-auto min-h-96 rounded-xl bg-base-200 grid md:grid-cols-3 p-3 md:p-12 gap-6">
+          <div className="col-span-1 mx-auto">
             <img src={userData.photoVal} className="rounded" alt="usrIMG" />
           </div>
-          <div className="col-span-2 grid gap-12 place-items-center">
+          <div className="md:col-span-2 grid gap-12 place-items-center">
             <table className="table table-zebra">
               <tbody className="bg-base-300">
                 <tr>
@@ -109,47 +111,66 @@ const Dashboard = () => {
                 </tr>
               </tbody>
             </table>
-            <div>
-              <ul className="menu menu-horizontal w-full justify-between border border-base-300 rounded-full">
-                <li>
-                  <Link className="btn btn-outline btn-sm rounded-r-none" to='/addreview'>Add a New Review</Link>
-                </li>
-                <li>
-                  <Link className="btn btn-outline btn-sm rounded-none" to='/myreviews'>Manage Reviews</Link>
-                </li>
-                <li>
-                  <Link className="btn btn-outline btn-sm rounded-l-none" to='/watchlist'>My Watchlist</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-3 w-full">
-              <form onSubmit={updateName}>
-                <label className="w-full input input-bordered flex items-center gap-2">
-                  <BiUserCircle />
-                  <input
-                    type="text"
-                    className="grow"
-                    placeholder="Change Username"
-                    name="name"
-                    required
-                  />
-                  <button type="submit" className="btn btn-xs btn-outline">Change</button>
-                </label>
-              </form>
-              <form onSubmit={updatePhoto}>
-                <label className="w-full input input-bordered flex items-center gap-2">
-                  <RiImageCircleAiLine />
-                  <input
-                    type="text"
-                    className="grow"
-                    placeholder="Change Photo (URL)"
-                    name="photo"
-                    required
-                  />
-                  <button type="submit" className="btn btn-xs btn-outline">Change</button>
-                </label>
-              </form>
-            </div>
+          </div>
+          <div>
+            <ul className="menu  w-full justify-between border border-base-300 rounded-xl">
+              <li>
+                <Link
+                  className="btn btn-outline btn-sm rounded-b-none"
+                  to="/addreview"
+                >
+                  Add a New Review
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="btn btn-outline btn-sm rounded-none"
+                  to="/myreviews"
+                >
+                  Manage Reviews
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="btn btn-outline btn-sm rounded-t-none"
+                  to="/watchlist"
+                >
+                  My Watchlist
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-3 w-full md:col-span-2">
+            <form onSubmit={updateName}>
+              <label className="w-full input input-bordered flex items-center gap-2">
+                <BiUserCircle />
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Change Username"
+                  name="name"
+                  required
+                />
+                <button type="submit" className="btn btn-xs btn-outline">
+                  Change
+                </button>
+              </label>
+            </form>
+            <form onSubmit={updatePhoto}>
+              <label className="w-full input input-bordered flex items-center gap-2">
+                <RiImageCircleAiLine />
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="Change Photo (URL)"
+                  name="photo"
+                  required
+                />
+                <button type="submit" className="btn btn-xs btn-outline">
+                  Change
+                </button>
+              </label>
+            </form>
           </div>
         </div>
       </main>
