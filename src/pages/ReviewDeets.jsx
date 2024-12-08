@@ -7,6 +7,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import ReactStars from "react-rating-stars-component";
 import Context from "../utils/Context";
 import toast from "react-hot-toast";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const ReviewDeets = () => {
   const { userData } = useContext(Context);
@@ -24,6 +25,11 @@ const ReviewDeets = () => {
   if (!review) {
     return (
       <>
+        <HelmetProvider>
+          <Helmet>
+            <title>Read Review</title>
+          </Helmet>
+        </HelmetProvider>
         <header className="sticky top-0 z-50">
           <Navbar />
         </header>
@@ -75,7 +81,7 @@ const ReviewDeets = () => {
               .then((data) => {
                 console.log(data);
               })
-              .catch(err => console.log(err));
+              .catch((err) => console.log(err));
           }
         } else {
           fetch(
@@ -94,7 +100,7 @@ const ReviewDeets = () => {
             .then((data) => {
               console.log(data);
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         }
       })
       .then(() => {
@@ -107,6 +113,11 @@ const ReviewDeets = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Read Review</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

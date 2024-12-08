@@ -9,6 +9,7 @@ import { RiImageCircleAiLine } from "react-icons/ri";
 import Context from "../utils/Context";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -117,6 +118,11 @@ const Signup = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Sign Up</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

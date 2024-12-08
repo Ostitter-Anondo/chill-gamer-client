@@ -34,6 +34,7 @@ Technologies used in the project:
 *   React Tooltip
 *   React Simple Typewriter
 *   egjs-flicking
+*   React Hlmet Async
 *   Sweet Alert 2
 *   Firebase Authentication
 *   MongoDB Atlas

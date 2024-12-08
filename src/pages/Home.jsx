@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import ReviewsMap from "./AllReviews/ReviewsMap";
 import Context from "../utils/Context";
 import { Link, useLoaderData } from "react-router";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Home = () => {
   const { userData } = useContext(Context);
@@ -26,6 +27,11 @@ const Home = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Chill Gamer</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

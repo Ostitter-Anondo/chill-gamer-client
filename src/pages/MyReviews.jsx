@@ -7,13 +7,16 @@ import Context from "../utils/Context";
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const MyReviews = () => {
   const { userData } = useContext(Context);
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_expressApiUrl}/myreviews/${userData.emailVal}`)
+    fetch(
+      `${import.meta.env.VITE_expressApiUrl}/myreviews/${userData.emailVal}`
+    )
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((err) => console.log(err));
@@ -41,7 +44,11 @@ const MyReviews = () => {
                 text: "Your file has been deleted.",
                 icon: "success",
               });
-              fetch(`${import.meta.env.VITE_expressApiUrl}/myreviews/${userData.emailVal}`)
+              fetch(
+                `${import.meta.env.VITE_expressApiUrl}/myreviews/${
+                  userData.emailVal
+                }`
+              )
                 .then((res) => res.json())
                 .then((data) => setArticles(data))
                 .catch((err) => console.log(err));
@@ -53,6 +60,11 @@ const MyReviews = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>My Reviews</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>
@@ -91,11 +103,16 @@ const MyReviews = () => {
                       size={24}
                       activeColor="#ffd700"
                     />
-                    <span className="badge badge-sm badge-accent">{article.genre}</span>
+                    <span className="badge badge-sm badge-accent">
+                      {article.genre}
+                    </span>
                   </td>
                   <th>
                     <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-                      <Link to={`/edit/${article._id}`} className="btn btn-info btn-xs h-fit py-2">
+                      <Link
+                        to={`/edit/${article._id}`}
+                        className="btn btn-info btn-xs h-fit py-2"
+                      >
                         <FaEdit /> Edit
                       </Link>
                       <button

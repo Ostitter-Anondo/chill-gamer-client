@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import ReviewsMap from "./AllReviews/ReviewsMap";
 import { useLoaderData } from "react-router";
 import { FaFilter, FaLayerGroup, FaSortAmountDown } from "react-icons/fa";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const AllReviews = () => {
   const [reviewList, setReviewList] = useState(useLoaderData());
@@ -20,6 +21,11 @@ const AllReviews = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>All Reviews</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

@@ -10,6 +10,7 @@ import { IoCalendar } from "react-icons/io5";
 import toast from "react-hot-toast";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const AddReview = () => {
   const { userData } = useContext(Context);
@@ -63,6 +64,11 @@ const AddReview = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Add Review</title>
+        </Helmet>
+      </HelmetProvider>
       <header>
         <Navbar />
       </header>

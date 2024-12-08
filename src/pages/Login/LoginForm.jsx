@@ -5,6 +5,7 @@ import { PiPasswordBold } from "react-icons/pi";
 import { Link, useNavigate } from "react-router";
 import Context from "../../utils/Context";
 import toast from "react-hot-toast";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const LoginForm = () => {
   const { loginMailPass, setUserData, signInGoogle } = useContext(Context);
@@ -109,6 +110,11 @@ const LoginForm = () => {
 
   return (
     <div>
+      <HelmetProvider>
+        <Helmet>
+          <title>Log In</title>
+        </Helmet>
+      </HelmetProvider>
       <form
         onSubmit={loginBehavior}
         className="flex flex-col w-11/12 md:9/12 lg:w-7/12 items-center mx-auto gap-6"

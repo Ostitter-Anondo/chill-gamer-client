@@ -10,6 +10,7 @@ import Context from "../utils/Context";
 import { Link, useNavigate, useParams } from "react-router";
 import ReactStars from "react-rating-stars-component";
 import toast from "react-hot-toast";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const EditReview = () => {
   const articleId = useParams().id;
@@ -34,6 +35,11 @@ const EditReview = () => {
   if (!article) {
     return (
       <>
+        <HelmetProvider>
+          <Helmet>
+            <title>Edit Review</title>
+          </Helmet>
+        </HelmetProvider>
         <header className="sticky top-0 z-50">
           <Navbar />
         </header>
@@ -69,7 +75,7 @@ const EditReview = () => {
       review: e.target.reviewTXT.value,
       year: e.target.year.value,
     };
-    console.log(newReview)
+    console.log(newReview);
     fetch(`${import.meta.env.VITE_expressApiUrl}/review/${articleId}`, {
       method: "PUT",
       headers: {
@@ -91,12 +97,17 @@ const EditReview = () => {
             secondary: "#4de62e",
           },
         });
-        navigate('/myreviews');
+        navigate("/myreviews");
       })
       .catch((err) => console.log(err));
   };
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Edit Review</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

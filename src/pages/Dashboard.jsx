@@ -6,6 +6,7 @@ import { RiImageCircleAiLine } from "react-icons/ri";
 import { Link } from "react-router";
 import toast from "react-hot-toast";
 import Footer from "./components/Footer";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Dashboard = () => {
   const { userData, setUserData } = useContext(Context);
@@ -86,6 +87,11 @@ const Dashboard = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Dashboard</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

@@ -7,6 +7,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { Link } from "react-router";
 import empty from "../assets/empty.png";
 import Swal from "sweetalert2";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Watchlist = () => {
   const { userData } = useContext(Context);
@@ -114,6 +115,11 @@ const Watchlist = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Game Watchlist</title>
+        </Helmet>
+      </HelmetProvider>
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

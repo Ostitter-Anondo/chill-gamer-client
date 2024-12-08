@@ -1,5 +1,4 @@
-import { FaFacebook, FaGithub } from "react-icons/fa";
-import { FaBluesky } from "react-icons/fa6";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import gamer from "../../assets/gamer.png"
 
 const Footer = () => {
@@ -10,13 +9,13 @@ const Footer = () => {
         <p>Copyright © {new Date().getFullYear()} - All right reserved Chill Gamer News Inc.</p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end text-2xl">
-        <a>
+        <a href="https://github.com/Ostitter-Anondo" target="_blank">
           <FaGithub />
         </a>
-        <a>
-          <FaBluesky />
+        <a href="https://www.linkedin.com/in/jawad-ibn-mamoon/" target="_blank">
+          <FaLinkedin />
         </a>
-        <a>
+        <a href="https://www.facebook.com/ostitter.anondo" target="_blank">
           <FaFacebook />
         </a>
       </nav>

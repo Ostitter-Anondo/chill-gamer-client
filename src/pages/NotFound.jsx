@@ -1,9 +1,15 @@
 import { Link } from "react-router";
 import pageError from "../assets/page-error.png"
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const NotFound = () => {
   return (
     <div className="w-full flex flex-col items-center gap-12 my-12">
+      <HelmetProvider>
+        <Helmet>
+          <title>Error!</title>
+        </Helmet>
+      </HelmetProvider>
       <img src={pageError} alt="404" className="size-48" />
       <div className="w-8/12 flex flex-col gap-6 text-center">
         <h1 className="text-7xl font-black text-warning">oops...</h1>
