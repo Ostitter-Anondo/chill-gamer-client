@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import Context from "../utils/Context";
 import Navbar from "./components/Navbar";
@@ -6,11 +6,33 @@ import Footer from "./components/Footer";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { Link } from "react-router";
 import empty from "../assets/empty.png";
+import Swal from "sweetalert2";
 
 const Watchlist = () => {
   const { userData } = useContext(Context);
-  
-  const watchlist = []
+  const [watchlist, setWatchlist] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_expressApiUrl}/watchlist/${userData.uid}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.watchlist) {
+          setWatchlist(data.watchlist);
+          console.log(`watchlist initial data was get`);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [userData.uid]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_expressApiUrl}/reviews`)
+      .then((res) => res.json())
+      .then((data) => {
+        setReviews(data.filter((datum) => watchlist.includes(datum._id)));
+      })
+      .catch((err) => console.log(err));
+  }, [watchlist]);
 
   if (!watchlist || watchlist.length === 0) {
     return (
@@ -39,7 +61,55 @@ const Watchlist = () => {
   }
 
   const handleDelete = (id, title) => {
-    console.log(id, title);
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${title} review will be removed from your watchlist`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(
+          `${import.meta.env.VITE_expressApiUrl}/watchlist/${userData.uid}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              watchlist: watchlist.filter((articleId) => articleId !== id),
+            }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            fetch(
+              `${import.meta.env.VITE_expressApiUrl}/watchlist/${userData.uid}`
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                if (data.watchlist) {
+                  setWatchlist(data.watchlist);
+                  console.log(`watchlist initial data was get`);
+                  fetch(`${import.meta.env.VITE_expressApiUrl}/reviews`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                      setReviews(
+                        data.filter((datum) => watchlist.includes(datum._id))
+                      );
+                    })
+                    .catch((err) => console.log(err));
+                }
+              })
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
 
   return (
@@ -60,7 +130,7 @@ const Watchlist = () => {
               </tr>
             </thead>
             <tbody>
-              {watchlist.map((article) => (
+              {reviews.map((article) => (
                 <tr key={article._id} className="h-full">
                   <td>
                     <div className="flex items-center gap-3">

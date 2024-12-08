@@ -74,7 +74,8 @@ const ReviewDeets = () => {
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
-              });
+              })
+              .catch(err => console.log(err));
           }
         } else {
           fetch(
@@ -92,7 +93,8 @@ const ReviewDeets = () => {
             .then((res) => res.json())
             .then((data) => {
               console.log(data);
-            });
+            })
+            .catch(err => console.log(err));
         }
       })
       .then(() => {
