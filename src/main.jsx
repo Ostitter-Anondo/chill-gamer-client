@@ -20,6 +20,8 @@ import ReviewDeets from "./pages/ReviewDeets.jsx";
 import EditReview from "./pages/EditReview.jsx";
 import SuperPrivateRoute from "./utils/SuperPrivateRoute.jsx";
 import Watchlist from "./pages/Watchlist.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
+import Support from "./pages/Support.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,14 @@ const router = createBrowserRouter([
   {
     path: "/review/:id",
     element: <ReviewDeets />,
+  },
+  {
+    path: "/about",
+    element: <AboutUs />,
+  },
+  {
+    path: "/support",
+    element: <Support />,
   },
   {
     path: "/dashboard",

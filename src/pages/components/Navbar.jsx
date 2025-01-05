@@ -35,6 +35,12 @@ const Navbar = () => {
       <li>
         <NavLink to="/reviews">All Reviews</NavLink>
       </li>
+      <li>
+        <NavLink to="/about">About Us</NavLink>
+      </li>
+      <li>
+        <NavLink to="/support">Support</NavLink>
+      </li>
       <li className="grid lg:place-items-center">
         <input
           type="checkbox"
@@ -66,11 +72,11 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost text-xl">
-          <img className="size-7" src={chillGamer} alt="chill" /> Chill Gamer
+          <img className="size-7" src={chillGamer} alt="chill" /> <span className="hidden md:block">Chill Gamer</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-xs menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
         {userData ? (

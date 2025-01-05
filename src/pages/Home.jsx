@@ -47,7 +47,7 @@ const Home = () => {
             </span>
           </h1>
         </div>
-        <div className="bg-base-200 py-12">
+        <div className="bg-base-200">
           <Banner />
         </div>
         <div className="my-12 w-11/12 mx-auto">
