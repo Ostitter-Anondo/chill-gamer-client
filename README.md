@@ -4,7 +4,11 @@
 
 <h2>🚀 Demo</h2>
 
-[https://www.funnyplace.com](https://www.funnyplace.com)
+[https://chillgamer-ostitteranondo.web.app/support](https://chillgamer-ostitteranondo.web.app/support)
+
+<h2>🚀 Server</h2>
+
+[https://github.com/Ostitter-Anondo/chill-gamer-server](https://github.com/Ostitter-Anondo/chill-gamer-server)
 
   
   
